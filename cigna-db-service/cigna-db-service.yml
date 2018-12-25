@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cigna-db-service
+  labels:
+    app: cigna-db-service
+    component: cigna-db-service
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: cigna-db-service
+      component: cigna-db-service
+  template:
+    metadata:
+      labels:
+        app: cigna-db-service
+        component: cigna-db-service
+    spec:
+      containers:
+        - name: cigna-db-service
+          image: "nexus.atmecs.corp:8123/cigna-db-service:v1"
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 9090
+              name: http

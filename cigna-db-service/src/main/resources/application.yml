@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    username: ${DBUSER}
+    password: ${PASSWORD}
+    url: jdbc:mysql://110.110.112.177:3306/cigna-db?useSSL=false
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+
+  application:
+    name: db-service
+
+server:
+  port: 9090
+  
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${defaultZone}

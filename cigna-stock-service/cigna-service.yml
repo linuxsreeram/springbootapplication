@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cigna-stock-service
+  labels:
+    app: cigna-stock-service
+    component: cigna-stock-service
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: cigna-stock-service
+      component: cigna-stock-service
+  template:
+    metadata:
+      labels:
+        app: cigna-stock-service
+        component: cigna-stock-service
+    spec:
+      containers:
+        - name: cigna-stock-service
+          image: "nexus.atmecs.corp:8123/cigna-stock-service:v${BUILD_NUMBER}"
+          imagePullPolicy: "IfNotPresent"
+          envFrom:
+          - configMapRef:
+              name: global-values
+          ports:
+            - containerPort: 9091
+              name: http

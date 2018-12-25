@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cigna-api-gateway
+  labels:
+    app: cigna-api-gateway
+    component: cigna-api-gateway
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: cigna-api-gateway
+      component: cigna-api-gateway
+  template:
+    metadata:
+      labels:
+        app: cigna-api-gateway
+        component: cigna-api-gateway
+    spec:
+      containers:
+        - name: cigna-api-gateway
+          image: "nexus.atmecs.corp:8123/cigna-api-gateway:v${BUILD_NUMBER}"
+          imagePullPolicy: "IfNotPresent"
+          envFrom:
+          - configMapRef:
+              name: global-values
+          ports:
+            - containerPort: 9092
+              name: http

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cigna-db-service
+  labels:
+    app: cigna-db-service
+    component: cigna-db-service
+spec:
+  ports:
+    - port: 9090
+      targetPort: 9090
+      nodePort: 30307
+  selector:
+    app: cigna-db-service
+    component: cigna-db-service
+  type: NodePort

@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cigna-eureka-service
+  labels:
+    app: cigna-eureka-service
+    component: cigna-eureka-service
+spec:
+  replicas: ${replicas}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: cigna-eureka-service
+      component: cigna-eureka-service
+  template:
+    metadata:
+      labels:
+        app: cigna-eureka-service
+        component: cigna-eureka-service
+    spec:
+      containers:
+        - name: cigna-eureka-service
+          image: "nexus.atmecs.corp:8123/cigna-eureka-service:v${BUILD_NUMBER}"
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 4721
+              name: http

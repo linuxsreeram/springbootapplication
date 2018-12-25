@@ -1,0 +1,26 @@
+zuul:
+  prefix: /api
+  routes:
+    db-service:
+      path: /db/**
+      serviceId: db-service
+    stock-service:
+      path: /stock/**
+      serviceId: stock-service
+server:
+  port: 9092
+  
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${defaultZone}
+
+
+spring:
+  application:
+    name: api-gateway
+    
+    
+      
